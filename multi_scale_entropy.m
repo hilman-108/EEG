@@ -16,11 +16,14 @@ for c=1:ch
     filtering(c,:)=eegfilt(data(c,:),128,1,45,0,64);
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%source = http://www.mat.ucm.es/~vmakarov/Supplementary/wICAexample/TestExample.html%%
 [weight, sphere] = runica(filtering, 'verbose', 'off');
 W = weight*sphere;
 icaEEG = W*filtering;
 [icaEEG2, opt]= RemoveStrongArtifacts(icaEEG, (1:14), 1.25, Fs);
 Data_wICA = inv(W)*icaEEG2;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 trials = 30;
 scales = 20;
